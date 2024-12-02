@@ -90,7 +90,11 @@ describe('Function comprobarChistmes', () => {
     });
 
     test('Should work with all combinations', () => {
-        expect(comprobarChismes(mockComplete)).toStrictEqual(ResultComplete);
+        const startTime = performance.now()
+        const res = comprobarChismes(mockComplete)
+        const endTime = performance.now()
+        expect(res).toStrictEqual(ResultComplete);
+        console.log(`comprobarChismes execution time: ${(endTime - startTime).toFixed(3)} ms`);
     });
 
 });

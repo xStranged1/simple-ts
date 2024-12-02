@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",       // Asegúrate de que "module" esté configurado en "commonjs"
+      "esModuleInterop": true,    // Añade o cambia esta línea a true
+      "skipLibCheck": true,       // Opcional: Agregar para evitar errores en las bibliotecas
+      "forceConsistentCasingInFileNames": true
+    }
+  }

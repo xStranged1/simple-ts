@@ -12,23 +12,67 @@
 // Procesar la lista de palabras siguiendo estas reglas.
 // Al final, imprimir la lista de "chismes reales", es decir, las palabras que cumplen con las condiciones anteriores.
 
-export const comprobarChismes = (chimes: string[]): string[] => {
+export const comprobarChismes = (chismes: string[]): string[] => {
 
 
     let resultado: string[] = []
-    chimes.forEach(chime => {
-        if (chime.includes('&') && chime.includes('$')) {
-            resultado.push('¡Chisme falso!')
-            return
+
+    // OLD FUNCTION
+
+    // chimes.forEach(chime => {
+    //     if (chime.includes('&') && chime.includes('$')) {
+    //         resultado.push('¡Chisme falso!')
+    //         return
+    //     }
+    //     if (chime.includes('&')) {
+    //         resultado.push(chime)
+    //         return
+    //     }
+    //     if (chime.includes('$')) {
+    //         return
+    //     }
+    //     resultado.push(chime)
+    // });
+
+    // REFACTOR
+    for (let i = 0; i < chismes.length; i++) {
+        const chisme = chismes[i];
+        let includesAmp: boolean = false
+        let includesMoney: boolean = false
+        let findSomeSimbol: boolean = false
+
+        for (let j = 0; j < chisme.length; j++) {
+            const c = chisme[j];
+
+            if (c === '$') {
+                findSomeSimbol = true
+                includesMoney = true
+                if (includesAmp) {
+                    resultado.push('¡Chisme falso!')
+                    break
+                }
+            }
+
+            if (c === '&') {
+                findSomeSimbol = true
+                includesAmp = true
+                if (includesMoney) {
+                    resultado.push('¡Chisme falso!')
+                    break
+                }
+            }
+
         }
-        if (chime.includes('&')) {
-            resultado.push(chime)
-            return
+        if (!findSomeSimbol) {
+            resultado.push(chisme)
+            continue
         }
-        if (chime.includes('$')) {
-            return
+        if (includesMoney && includesAmp) continue
+        if (includesMoney) continue
+        if (includesAmp) {
+            resultado.push(chisme)
+            continue
         }
-        resultado.push(chime)
-    });
+    }
     return resultado
 }
